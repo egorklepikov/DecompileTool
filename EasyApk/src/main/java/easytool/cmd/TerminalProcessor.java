@@ -20,7 +20,7 @@ public class TerminalProcessor extends CmdProcessor {
         boolean isMacOS = Utils.getInstance().isMacOS();
         String prefix = Utils.getInstance().getPrefix();
 
-        String decompileCommand = isMacOS ? "apktool-osx d " : "apktool.bat d ";
+        String decompileCommand = isMacOS ? "apktool-osx d -f " : "apktool.bat d -f ";
         String compileCommand = isMacOS ? "apktool-osx b " : "apktool.bat b ";
         String signApkCommand = "jarsigner -keystore debug.keystore -storepass android -keypass android " +
                 prefix + Utils.getInstance().getApkName() + "/dist/" + Utils.getInstance().getFullApkName() + " androiddebugkey";
