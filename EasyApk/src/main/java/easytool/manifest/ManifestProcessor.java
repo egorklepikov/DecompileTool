@@ -13,6 +13,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ManifestProcessor {
     protected Document androidManifest;
@@ -86,17 +88,42 @@ public class ManifestProcessor {
     }
 
     public boolean addNetworkSecurityConfig() {
-        addConfig();
-        networkConfig = openDocument(Utils.getInstance().getNetworkSecurityConfigPath());
+        addNetworkConfigToManifest();
         if (isNetworkSecurityConfigAlreadyExist()) {
-            changeNetworkSecurityConfigFile();
+            networkConfig = openDocument(Utils.getInstance().getNetworkSecurityConfigPath());
+            if (isNetworkConfigMatched(Utils.getInstance().getNetworkSecurityConfigPath())) {
+                System.out.println("Содержимое network_security_config файла матчится");
+                changeNetworkSecurityConfigFile();
+            } else {
+                System.out.println("Содержимое network_security_config файла не матчится. Нужно проверить вручную и порекомендовать пользователю фикс");
+                if (removeNetworkSecurityConfig()) {
+                    createNetworkSecurityConfigFile();
+                } else {
+                    System.out.println("В процессе добавления network_security_config возникли проблемы");
+                }
+            }
         } else {
             createNetworkSecurityConfigFile();
         }
         return true;
     }
 
-    private void addConfig() {
+    private boolean removeNetworkSecurityConfig() {
+        File config = new File(Utils.getInstance().getNetworkSecurityConfigPath());
+        if (config.exists()) {
+            boolean isRemoved = config.delete();
+            if (isRemoved) {
+                System.out.println("network_security_config был удален");
+            } else {
+                System.out.println("В процессе удаления network_security_config возникли проблемы");
+            }
+            return isRemoved;
+        } else {
+            return true;
+        }
+    }
+
+    private void addNetworkConfigToManifest() {
         Attr networkConfig = application.getAttributeNode("android:networkSecurityConfig");
         if (networkConfig != null) {
             String configName = networkConfig.getValue().replaceAll("@xml/", "").replace(".xml", "");
@@ -131,7 +158,7 @@ public class ManifestProcessor {
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        System.out.println("Network Security Config был добавлен");
+        System.out.println("network_security_config был добавлен");
     }
 
     private void changeNetworkSecurityConfigFile() {
@@ -157,6 +184,38 @@ public class ManifestProcessor {
             }
         }
         return isNetworkConfigFileExist;
+    }
+
+    private boolean isNetworkConfigMatched(String networkConfigPath) {
+        List<String> requiredAttrs = new ArrayList<>();
+        requiredAttrs.add("<network-security-config>");
+        requiredAttrs.add("</network-security-config>");
+        requiredAttrs.add("<base-config cleartextTrafficPermitted=true>");
+        requiredAttrs.add("<trust-anchors>");
+        requiredAttrs.add("</trust-anchors>");
+        requiredAttrs.add("</base-config>");
+
+        int matchedCount = 0;
+        int requiredCount = requiredAttrs.size() - 1;
+
+        BufferedReader networkReader;
+        try {
+            networkReader = new BufferedReader(new FileReader(networkConfigPath));
+            String networkConfigLine;
+            while ((networkConfigLine = networkReader.readLine()) != null) {
+                for (String attr : requiredAttrs) {
+                    if (networkConfigLine.contains(attr)) {
+                        matchedCount++;
+                        requiredAttrs.remove(attr);
+                        break;
+                    }
+                }
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        return matchedCount == requiredCount;
     }
 
     public boolean addWriteExternalStorage() {
