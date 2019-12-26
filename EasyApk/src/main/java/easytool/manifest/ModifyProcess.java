@@ -11,8 +11,10 @@ public class ModifyProcess implements Command {
 
     private InjectProcessor injectProcessor;
     private InjectInvoker injectInvoker;
+    private boolean isInjectorRequired;
 
     public ModifyProcess(boolean isInjectorRequired) {
+        this.isInjectorRequired = isInjectorRequired;
         manifestProcessor = new ManifestProcessor();
         manifestInvoker = new ManifestInvoker();
         manifestInvoker.putCommand(new NetworkSecurityConfig(manifestProcessor));
@@ -28,7 +30,11 @@ public class ModifyProcess implements Command {
 
     @Override
     public boolean execute() {
-        return manifestInvoker.startExecuting() && injectInvoker.startExecuting();
+        if (isInjectorRequired) {
+            return manifestInvoker.startExecuting() && injectInvoker.startExecuting();
+        } else {
+            return manifestInvoker.startExecuting();
+        }
     }
 
     @Override
