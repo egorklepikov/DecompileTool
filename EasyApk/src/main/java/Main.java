@@ -43,6 +43,8 @@ public class Main {
             }
         }
 
+        System.out.println("test");
+
         if (argsParser.isCodeSearcherRequired()) {
             invoker.putCommand(new GetSourceProcess(terminalProcessor));
             invoker.putCommand(new SearchProcess(new SearchProcessor()));
