@@ -23,6 +23,10 @@ public class ArgsParser {
         return checkArgs("-wi");
     }
 
+    public boolean isPredictRequired() {
+        return checkArgs("-predict");
+    }
+
     private boolean checkArgs(String targetCommand) {
         if (args.length == 0) {
             return false;
