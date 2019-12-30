@@ -2,6 +2,7 @@ import easytool.ArgsParser;
 import easytool.Utils;
 import easytool.cmd.*;
 import easytool.manifest.ModifyProcess;
+import easytool.predictor.PredictProcess;
 import easytool.search.GetSourceProcess;
 import easytool.search.SearchProcess;
 import easytool.search.SearchProcessor;
@@ -35,6 +36,9 @@ public class Main {
         invoker.putCommand(new DecompileProcess(terminalProcessor));
 
         if (!argsParser.isDecompileOnly()) {
+            if (argsParser.isPredictRequired()) {
+                invoker.putCommand(new PredictProcess());
+            }
             invoker.putCommand(new ModifyProcess(argsParser.isInjectorRequired()));
             invoker.putCommand(new CompileProcess(terminalProcessor));
             invoker.putCommand(new SignProcess(terminalProcessor));
