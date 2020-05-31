@@ -1,3 +1,5 @@
+package easytool.entry;
+
 import easytool.ArgsParser;
 import easytool.Utils;
 import easytool.cmd.*;
