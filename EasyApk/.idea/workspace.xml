@@ -1,8 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="EasyApk:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="b47f883a-6384-4714-9d01-88686d045c04" name="Default Changelist" comment="" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <list default="true" id="b47f883a-6384-4714-9d01-88686d045c04" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/ArgsParser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/CmdProcessor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/Utils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/cmd/Command.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/cmd/CommandInvoker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/cmd/CompileProcess.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/cmd/DecompileProcess.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/cmd/InstallProcess.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/cmd/SignProcess.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/cmd/TerminalProcessor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/injector/InjectCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/injector/InjectInvoker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/injector/InjectProcess.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/injector/InjectProcessor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/injector/JavaConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/injector/SmaliConnector.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/injector/SmaliPostProcess.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/injector/SmaliSearcher.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/injector/code/AppodealCode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/injector/packages/android/app/Activity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/injector/packages/android/content/Context.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/injector/packages/com/appodeal/ads/Appodeal.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/injector/packages/com/appodeal/ads/BannerCallbacks.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/injector/packages/com/appodeal/ads/InterstitialCallbacks.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/injector/packages/com/appodeal/ads/RewardedVideoCallbacks.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/injector/packages/com/appodeal/ads/utils/Log$LogLevel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/injector/packages/com/appodeal/ads/utils/Log.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/manifest/DebugMode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/manifest/ManifestCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/manifest/ManifestInvoker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/manifest/ManifestProcessor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/manifest/ModifyProcess.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/manifest/NetworkSecurityConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/manifest/WriteExternalStorage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/predictor/PredictProcess.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/predictor/Predictor$BuildType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/predictor/Predictor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/search/AppodealUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/search/GetSourceProcess.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/search/SearchProcess.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/search/SearchProcessor$JavaChecker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/easytool/search/SearchProcessor.class" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,24 +83,15 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1Rn0w57Q8JPqwL2EW5RM5V0Fzby" />
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.1275685" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -62,5 +121,17 @@
       <updated>1570287787882</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
