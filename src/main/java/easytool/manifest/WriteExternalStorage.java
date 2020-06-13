@@ -1,19 +1,19 @@
 package easytool.manifest;
 
 public class WriteExternalStorage implements ManifestCommand {
-    private ManifestProcessor manifestProcessor;
+  private final ManifestProcessor manifestProcessor;
 
-    public WriteExternalStorage(ManifestProcessor manifestProcessor) {
-        this.manifestProcessor = manifestProcessor;
-    }
+  public WriteExternalStorage(ManifestProcessor manifestProcessor) {
+    this.manifestProcessor = manifestProcessor;
+  }
 
-    @Override
-    public boolean execute() {
-        return manifestProcessor.addWriteExternalStorage();
-    }
+  @Override
+  public boolean execute() {
+    return manifestProcessor.addWriteExternalStorage();
+  }
 
-    @Override
-    public void initialize() {
-        manifestProcessor.initializeAndroidManifest();
-    }
+  @Override
+  public void initialize() {
+    manifestProcessor.initializeAndroidManifest();
+  }
 }

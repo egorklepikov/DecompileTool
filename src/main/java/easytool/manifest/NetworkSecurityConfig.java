@@ -1,19 +1,19 @@
 package easytool.manifest;
 
 public class NetworkSecurityConfig implements ManifestCommand {
-    private ManifestProcessor manifestProcessor;
+  private final ManifestProcessor manifestProcessor;
 
-    public NetworkSecurityConfig(ManifestProcessor manifestProcessor) {
-        this.manifestProcessor = manifestProcessor;
-    }
+  public NetworkSecurityConfig(ManifestProcessor manifestProcessor) {
+    this.manifestProcessor = manifestProcessor;
+  }
 
-    @Override
-    public boolean execute() {
-        return manifestProcessor.addNetworkSecurityConfig();
-    }
+  @Override
+  public boolean execute() {
+    return manifestProcessor.addNetworkSecurityConfig();
+  }
 
-    @Override
-    public void initialize() {
-        manifestProcessor.initializeAndroidManifest();
-    }
+  @Override
+  public void initialize() {
+    manifestProcessor.initializeAndroidManifest();
+  }
 }

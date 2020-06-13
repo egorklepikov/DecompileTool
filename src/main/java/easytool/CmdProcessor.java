@@ -1,63 +1,66 @@
 package easytool;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CmdProcessor {
-    protected static boolean processCmdCommand(String command) {
-        ResourceResolver resourceResolver = new ResourceResolver();
-        AtomicBoolean result = new AtomicBoolean(false);
-        Process process;
-        try {
-            Runtime runtime = Runtime.getRuntime();
-            process = runtime.exec(resourceResolver.resolve(command));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return false;
-        }
-
-        if (process == null) return false;
-
-        Process finalProcess = process;
-        Thread inputStreamThread = new Thread(() -> result.set(outputThread("input", finalProcess)));
-        Thread errorStreamThread = new Thread(() -> result.set(outputThread("error", finalProcess)));
-
-        inputStreamThread.start();
-        errorStreamThread.start();
-
-        try {
-            inputStreamThread.join();
-            errorStreamThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return result.get();
+  protected static boolean processCmdCommand(String command) {
+    ResourceResolver resourceResolver = new ResourceResolver();
+    AtomicBoolean result = new AtomicBoolean(false);
+    Process process;
+    try {
+      Runtime runtime = Runtime.getRuntime();
+      process = runtime.exec(resourceResolver.resolve(command));
+    } catch (IOException ex) {
+      ex.printStackTrace();
+      return false;
     }
 
-    private static boolean outputThread(String outputType, Process process) {
-        InputStream stream;
-        if (outputType.equals("input")) {
-            stream = process.getInputStream();
-        } else if (outputType.equals("error")) {
-            stream = process.getErrorStream();
-        } else {
-            return false;
-        }
+    if (process == null) return false;
 
-        InputStreamReader streamReader = new InputStreamReader(stream);
-        BufferedReader bufferedReader = new BufferedReader(streamReader);
+    Process finalProcess = process;
+    Thread inputStreamThread = new Thread(() -> result.set(outputThread("input", finalProcess)));
+    Thread errorStreamThread = new Thread(() -> result.set(outputThread("error", finalProcess)));
 
-        try {
-            String error = bufferedReader.readLine();
-            while (error != null) {
-                System.out.println(error);
-                error = bufferedReader.readLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    inputStreamThread.start();
+    errorStreamThread.start();
 
-        return true;
+    try {
+      inputStreamThread.join();
+      errorStreamThread.join();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+      return false;
     }
+    return result.get();
+  }
+
+  private static boolean outputThread(String outputType, Process process) {
+    InputStream stream;
+    if (outputType.equals("input")) {
+      stream = process.getInputStream();
+    } else if (outputType.equals("error")) {
+      stream = process.getErrorStream();
+    } else {
+      return false;
+    }
+
+    InputStreamReader streamReader = new InputStreamReader(stream);
+    BufferedReader bufferedReader = new BufferedReader(streamReader);
+
+    try {
+      String error = bufferedReader.readLine();
+      while (error != null) {
+        System.out.println(error);
+        error = bufferedReader.readLine();
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    return true;
+  }
 }

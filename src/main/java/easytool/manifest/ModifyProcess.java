@@ -6,55 +6,55 @@ import easytool.injector.InjectProcess;
 import easytool.injector.InjectProcessor;
 
 public class ModifyProcess implements Command {
-    private ManifestProcessor manifestProcessor;
-    private ManifestInvoker manifestInvoker;
+  private final ManifestProcessor manifestProcessor;
+  private final ManifestInvoker manifestInvoker;
 
-    private InjectProcessor injectProcessor;
-    private InjectInvoker injectInvoker;
-    private boolean isInjectorRequired;
+  private InjectProcessor injectProcessor;
+  private InjectInvoker injectInvoker;
+  private final boolean isInjectorRequired;
 
-    public ModifyProcess(boolean isInjectorRequired) {
-        this.isInjectorRequired = isInjectorRequired;
-        manifestProcessor = new ManifestProcessor();
-        manifestInvoker = new ManifestInvoker();
-        manifestInvoker.putCommand(new NetworkSecurityConfig(manifestProcessor));
-        manifestInvoker.putCommand(new WriteExternalStorage(manifestProcessor));
-        manifestInvoker.putCommand(new DebugMode(manifestProcessor));
+  public ModifyProcess(boolean isInjectorRequired) {
+    this.isInjectorRequired = isInjectorRequired;
+    manifestProcessor = new ManifestProcessor();
+    manifestInvoker = new ManifestInvoker();
+    manifestInvoker.putCommand(new NetworkSecurityConfig(manifestProcessor));
+    manifestInvoker.putCommand(new WriteExternalStorage(manifestProcessor));
+    manifestInvoker.putCommand(new DebugMode(manifestProcessor));
 
-        if (isInjectorRequired) {
-            injectProcessor = new InjectProcessor();
-            injectInvoker = new InjectInvoker();
-            injectInvoker.putCommand(new InjectProcess(injectProcessor));
-        }
+    if (isInjectorRequired) {
+      injectProcessor = new InjectProcessor();
+      injectInvoker = new InjectInvoker();
+      injectInvoker.putCommand(new InjectProcess(injectProcessor));
     }
+  }
 
-    @Override
-    public boolean execute() {
-        if (isInjectorRequired) {
-            return manifestInvoker.startExecuting() && injectInvoker.startExecuting();
-        } else {
-            return manifestInvoker.startExecuting();
-        }
+  @Override
+  public boolean execute() {
+    if (isInjectorRequired) {
+      return manifestInvoker.startExecuting() && injectInvoker.startExecuting();
+    } else {
+      return manifestInvoker.startExecuting();
     }
+  }
 
-    @Override
-    public void startNotification() {
-        System.out.println("----------------------------------------------------");
-        System.out.println("Модифицируем АПК");
-        System.out.println("----------------------------------------------------");
-    }
+  @Override
+  public void startNotification() {
+    System.out.println("----------------------------------------------------");
+    System.out.println("Модифицируем АПК");
+    System.out.println("----------------------------------------------------");
+  }
 
-    @Override
-    public void endNotification() {
-        System.out.println("----------------------------------------------------");
-        System.out.println("Модификация закончена");
-        System.out.println("----------------------------------------------------");
-    }
+  @Override
+  public void endNotification() {
+    System.out.println("----------------------------------------------------");
+    System.out.println("Модификация закончена");
+    System.out.println("----------------------------------------------------");
+  }
 
-    @Override
-    public void errorNotification() {
-        System.out.println("----------------------------------------------------");
-        System.out.println("В процессе модицикации возникли проблемы");
-        System.out.println("----------------------------------------------------");
-    }
+  @Override
+  public void errorNotification() {
+    System.out.println("----------------------------------------------------");
+    System.out.println("В процессе модицикации возникли проблемы");
+    System.out.println("----------------------------------------------------");
+  }
 }

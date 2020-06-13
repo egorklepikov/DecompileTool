@@ -1,8 +1,11 @@
 package easytool.cmd;
 
 public interface Command {
-    boolean execute();
-    void startNotification();
-    void endNotification();
-    void errorNotification();
+  boolean execute();
+
+  void startNotification();
+
+  void endNotification();
+
+  void errorNotification();
 }
