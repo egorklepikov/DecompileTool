@@ -1,14 +1,11 @@
 package easytool.entry;
 
-import easytool.ArgsParser;
 import easytool.Utils;
 import easytool.cmd.*;
 import easytool.manifest.ModifyProcess;
 
 public class IntelliJEntryPoint {
   public static void main(String[] args) {
-    ArgsParser argsParser = new ArgsParser(args);
-
     Utils.getInstance().setApkName(args[0]);
     Utils.getInstance().setNetworkSecurityConfigFileName("network_security_config");
     Utils.getInstance().setSystemName(System.getProperty("os.name"));
