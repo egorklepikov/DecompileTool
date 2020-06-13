@@ -18,15 +18,15 @@ import java.util.List;
 
 public class ManifestProcessor {
   private final String networkConfigContent =
-      "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
-          "<network-security-config>\n" +
-          "    <base-config cleartextTrafficPermitted=\"true\">\n" +
-          "        <trust-anchors>\n" +
-          "            <certificates src=\"system\"/>\n" +
-          "            <certificates src=\"user\"/>\n" +
-          "        </trust-anchors>\n" +
-          "    </base-config>\n" +
-          "</network-security-config>";
+    "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
+      "<network-security-config>\n" +
+      "    <base-config cleartextTrafficPermitted=\"true\">\n" +
+      "        <trust-anchors>\n" +
+      "            <certificates src=\"system\"/>\n" +
+      "            <certificates src=\"user\"/>\n" +
+      "        </trust-anchors>\n" +
+      "    </base-config>\n" +
+      "</network-security-config>";
   protected Document androidManifest;
   protected boolean isManifestInitialized;
   private Document networkConfig;
@@ -126,7 +126,6 @@ public class ManifestProcessor {
     Attr networkConfig = application.getAttributeNode("android:networkSecurityConfig");
     if (networkConfig != null) {
       String configName = networkConfig.getValue().replaceAll("@xml/", "").replace(".xml", "");
-      //В некоторых случаях при декомпиляции имя конфига в манифесте распознается некорректно
       if (configName.equals("@null")) {
         networkConfig.setValue("@xml/" + Utils.getInstance().getNetworkSecurityConfigFileName());
       } else {
@@ -137,7 +136,6 @@ public class ManifestProcessor {
       application.setAttribute("android:networkSecurityConfig", "@xml/" + Utils.getInstance().getNetworkSecurityConfigFileName());
       System.out.println("NetworkSecurityConfig file name: " + Utils.getInstance().getNetworkSecurityConfigFileName());
     }
-
     updateManifest(androidManifest, Utils.getInstance().getAndroidManifestPath());
     Utils.getInstance().correctNetworkSecurityConfigPath();
   }
@@ -161,11 +159,9 @@ public class ManifestProcessor {
   }
 
   private void changeNetworkSecurityConfigFile() {
-    Node trustAnchors = networkConfig.getElementsByTagName("trust-anchors").item(0);
-
     Element userCertificates = networkConfig.createElement("certificates");
     userCertificates.setAttribute("src", "user");
-    trustAnchors.appendChild(userCertificates);
+    networkConfig.getElementsByTagName("trust-anchors").item(0).appendChild(userCertificates);
     updateManifest(networkConfig, Utils.getInstance().getNetworkSecurityConfigPath());
     System.out.println("network_security_config was changed");
   }
@@ -196,7 +192,6 @@ public class ManifestProcessor {
 
     int matchedCount = 0;
     int requiredCount = requiredAttrs.size() - 1;
-
     BufferedReader networkReader;
     try {
       networkReader = new BufferedReader(new FileReader(networkConfigPath));
@@ -213,7 +208,6 @@ public class ManifestProcessor {
     } catch (IOException ex) {
       ex.printStackTrace();
     }
-
     return matchedCount == requiredCount;
   }
 
@@ -225,11 +219,9 @@ public class ManifestProcessor {
   }
 
   private void addWriteExternalStoragePermission() {
-    Node manifest = androidManifest.getDocumentElement();
-
     Element storagePermission = androidManifest.createElement("uses-permission");
     storagePermission.setAttribute("android:name", "android.permission.WRITE_EXTERNAL_STORAGE");
-    manifest.appendChild(storagePermission);
+    androidManifest.getDocumentElement().appendChild(storagePermission);
     updateManifest(androidManifest, Utils.getInstance().getAndroidManifestPath());
     System.out.println("WRITE_EXTERNAL_STORAGE was added");
   }
@@ -262,7 +254,6 @@ public class ManifestProcessor {
       attributes.removeNamedItem(maxSdkVersion.getNodeName());
       System.out.println("maxSdkVersion attr was removed");
     }
-
     return isRemoveNeed;
   }
 }
