@@ -1,36 +1,9 @@
-Подготовка перед использованием:
---------------------------------------------------------------------------------------------------
-- установить JDK 1.8+ версии
-- установить .NET Core 2.1+ (https://dotnet.microsoft.com/download)
-- установить ilspy плагин при помощи команды: dotnet tool install ilspycmd -g
-- добавить ilspycmd в переменные среды. У меня ilspycmd установился в директорию: /Users/egorklepikov/.dotnet/tools. Гайд по настройке переменных сред для MacOS: https://www.architectryan.com/2012/10/02/add-to-the-path-on-mac-os-x-mountain-lion/
+How to make a new build version:
+----
+`Build -> Build Artifacts`
 
-Доступный функционал
---------------------------------------------------------------------------------------------------
-- добавление network_security_config
-- добавление debug мода
-- добавление write_external_storage пермишена
-- добавление своей интеграции в приложение пользователя
-- поиск исходного кода Appodeal SDK
-- получение исходников при помощи jadx/ilspy
-- анализирование APK на наличие типичных проблем
+How to use:
+---
+- Add the target `.jar` file into the plugin in settings `File -> Project Structure -> Libraries`.
 
-Список комманд
---------------------------------------------------------------------------------------------------
-1) `-code` включает поиск исходного кода и декомпилирование при помощи jarx, ilspy
-
-2) `-inject` включает инжектирование своей интеграции при запуске приложения пользователя. Желаемую интеграцию нужно добавить в класс: EasyApk/src/main/java/easytool/injector/code/AppodealCode.java
-
-4) `-do` выключает все процессы кроме декомпиляции при помощи apktool
-
-5) `-wi` выключает установку приложения на устройстве после выполнения процессов 
-
-6) `-predict` запускает процесс поиска типичных проблем внутри APK файла
-
-Примеры
---------------------------------------------------------------------------------------------------
-1) `java -cp EasyApk.jar Main nameApk.apk -wi -code -inject` в этом случае будут выполнены все процессы кроме установки приложения на устройство
-
-2) `java -cp EasyApk.jar Main nameApk.apk -wi` в этом случае приложение будет подготовлено под использование Charles, Android Profiler, Layout Inspector, но установка не произойдет
-
-3) `java -cp EasyApk.jar Main nameApk.apk` в этом случае приложение будет подготовлено под Charles, Android Profiler, Layout Inspector и будет установлено на девайс
+- Call `IntelliJEntryPoint` entry point with the necessary args.
