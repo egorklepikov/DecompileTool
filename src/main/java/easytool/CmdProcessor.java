@@ -7,19 +7,22 @@ import java.io.InputStreamReader;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CmdProcessor {
-  protected static boolean processCmdCommand(String command) {
-    ResourceResolver resourceResolver = new ResourceResolver();
+  protected static boolean processCmdCommand(String command, boolean isResolverRequired) {
     AtomicBoolean result = new AtomicBoolean(false);
     Process process;
     try {
       Runtime runtime = Runtime.getRuntime();
-      process = runtime.exec(resourceResolver.resolve(command));
+      if (isResolverRequired) {
+        process = runtime.exec(new ResourceResolver().resolve(command));
+      } else {
+        process = runtime.exec(command);
+      }
     } catch (IOException ex) {
       ex.printStackTrace();
       return false;
     }
 
-    if (process == null) return false;
+    if (process == null) throw new NullPointerException();
 
     Process finalProcess = process;
     Thread inputStreamThread = new Thread(() -> result.set(outputThread("input", finalProcess)));

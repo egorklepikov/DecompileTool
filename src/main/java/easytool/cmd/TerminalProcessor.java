@@ -38,19 +38,19 @@ public class TerminalProcessor extends CmdProcessor {
   }
 
   public boolean decompileApk() {
-    return processCmdCommand(apkToolDecompile);
+    return processCmdCommand(apkToolDecompile, true);
   }
 
   public boolean compileApk() {
-    return processCmdCommand(apkToolBuild);
+    return processCmdCommand(apkToolBuild, true);
   }
 
   public boolean signApk() {
-    return processCmdCommand(signApk);
+    return processCmdCommand(signApk, false);
   }
 
   public boolean installApk() {
-    return processCmdCommand(installApk);
+    return processCmdCommand(installApk, true);
   }
 
   public boolean decompileApkJadX() {
@@ -59,14 +59,14 @@ public class TerminalProcessor extends CmdProcessor {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return processCmdCommand(jadXDecompile);
+    return processCmdCommand(jadXDecompile, true);
   }
 
   public boolean decompileApkIlSpy() {
     ilSpyDecompile = "ilspycmd " + Utils.getInstance().getDllFileFullPath() + " -o " + Utils.getInstance().getSourcesPath() + " -p";
-    if (processCmdCommand(installILSpy)) {
+    if (processCmdCommand(installILSpy, true)) {
       createSourcesDir();
-      return (processCmdCommand(ilSpyDecompile));
+      return (processCmdCommand(ilSpyDecompile, true));
     } else {
       System.out.println("Check that .NET Core is installed on your machine.");
       return false;

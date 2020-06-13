@@ -20,19 +20,19 @@ public class JavaConverter extends CmdProcessor {
   }
 
   private boolean generateClassFile() {
-    return processCmdCommand(classGetter);
+    return processCmdCommand(classGetter, true);
   }
 
   private boolean generateJarFile() {
-    return processCmdCommand(jarGetter);
+    return processCmdCommand(jarGetter, true);
   }
 
   private boolean generateDexFile() {
-    return processCmdCommand(dexGetter);
+    return processCmdCommand(dexGetter, true);
   }
 
   private boolean generateSmaliFile() {
-    return processCmdCommand(smaliGetter);
+    return processCmdCommand(smaliGetter, true);
   }
 
   private boolean processAppodealCode() {
