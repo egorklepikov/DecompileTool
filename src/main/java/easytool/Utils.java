@@ -3,7 +3,6 @@ package easytool;
 import java.io.File;
 
 public class Utils {
-
   private static final Utils ourInstance = new Utils();
   private String apkName;
   private String fullApkName;

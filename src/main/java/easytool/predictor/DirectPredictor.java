@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DirectPredictor implements Predictor {
-
   private BuildType buildType;
   private final List<String> problemList;
   private boolean isMultidexEnabled;
@@ -20,7 +19,7 @@ public class DirectPredictor implements Predictor {
   }
 
   private void collectInformation() {
-    apkFiles = new File(Utils.getInstance().getApkName().toString()).listFiles();
+    apkFiles = new File(Utils.getInstance().getApkName()).listFiles();
     buildType = getBuildType();
     isMultidexEnabled = checkMultidex();
   }

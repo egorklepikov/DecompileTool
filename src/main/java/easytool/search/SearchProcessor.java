@@ -11,10 +11,6 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class SearchProcessor {
-  /**
-   * Key - имя класса в котором встречается Appodeal SDK
-   * Value - список методов используемых в классе
-   */
   private final ConcurrentHashMap<String, List<String>> appodealSources;
 
   private final JavaChecker javaChecker;
