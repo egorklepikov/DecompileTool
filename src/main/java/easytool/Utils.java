@@ -6,10 +6,8 @@ public class Utils {
   private static final Utils ourInstance = new Utils();
   private String apkName;
   private String fullApkName;
-  private String jarPath;
   private String xmlFolderPath;
   private String androidManifestPath;
-  private String systemName;
   private String networkSecurityConfigPath;
   private String networkSecurityConfigFileName;
   private String sourcesPath;
@@ -46,10 +44,6 @@ public class Utils {
     return fullApkName;
   }
 
-  public void setJarPath(String jarPath) {
-    this.jarPath = jarPath;
-  }
-
   public String getXmlFolderPath() {
     return xmlFolderPath;
   }
@@ -68,7 +62,6 @@ public class Utils {
 
   public void setSystemName(String systemName) {
     isMacOS = systemName.contains("Mac OS");
-    this.systemName = systemName;
   }
 
   public String getNetworkSecurityConfigPath() {

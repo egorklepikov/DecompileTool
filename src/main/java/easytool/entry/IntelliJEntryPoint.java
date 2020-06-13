@@ -5,18 +5,8 @@ import easytool.Utils;
 import easytool.cmd.*;
 import easytool.manifest.ModifyProcess;
 
-import java.io.File;
-import java.net.URISyntaxException;
-
 public class IntelliJEntryPoint {
   public static void main(String[] args) {
-    try {
-      String jarPath = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath().replace("EasyApk.jar", "");
-      Utils.getInstance().setJarPath(jarPath);
-    } catch (URISyntaxException e) {
-      e.printStackTrace();
-    }
-
     ArgsParser argsParser = new ArgsParser(args);
 
     Utils.getInstance().setApkName(args[0]);
