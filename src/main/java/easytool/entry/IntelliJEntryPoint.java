@@ -18,7 +18,7 @@ public class IntelliJEntryPoint {
     TerminalProcessor terminalProcessor = new TerminalProcessor();
     CommandInvoker invoker = new CommandInvoker();
     invoker.putCommand(new DecompileProcess(terminalProcessor));
-    invoker.putCommand(new ModifyProcess(argsParser.isInjectorRequired()));
+    invoker.putCommand(new ModifyProcess(false));
     invoker.putCommand(new CompileProcess(terminalProcessor));
     invoker.putCommand(new SignProcess(terminalProcessor));
     invoker.putCommand(new InstallProcess(terminalProcessor));
