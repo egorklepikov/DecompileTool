@@ -5,7 +5,7 @@ import java.io.File;
 public class Utils {
 
   private static final Utils ourInstance = new Utils();
-  private StringBuilder apkName;
+  private String apkName;
   private String fullApkName;
   private String jarPath;
   private String xmlFolderPath;
@@ -25,15 +25,13 @@ public class Utils {
     return ourInstance;
   }
 
-  public StringBuilder getApkName() {
+  public String getApkName() {
     return apkName;
   }
 
   public void setApkName(String apkName) {
     this.fullApkName = apkName;
-    //this.apkName = buildApkName(apkName);
-    this.apkName = new StringBuilder();
-    this.apkName.append("/Users/Egor.Klepikov/IdeaProjects/DecompileTool/EasyApk/test");
+    this.apkName = buildApkName(apkName);
   }
 
   public String getSourcesPath() {
@@ -155,18 +153,21 @@ public class Utils {
     return isMacOS;
   }
 
-  private StringBuilder buildApkName(String path) {
+  private String buildApkName(String path) {
     StringBuilder apkName = new StringBuilder();
-    char[] seq = path.toCharArray();
-    for (char ch : seq) {
-      if (ch != '.') {
-        apkName.append(ch);
+    String[] pathElements = path.split("/");
+    String apkNameWithExtension = pathElements[pathElements.length - 1];
+
+    char[] apkNameChars = apkNameWithExtension.toCharArray();
+    for (char apkNameChar : apkNameChars) {
+      if (apkNameChar != '.') {
+        apkName.append(apkNameChar);
       } else {
-        //Если в названии будет несколько точек то поломается.
         break;
       }
     }
-    return apkName;
+
+    return apkName.toString();
   }
 
   public String getDllFileFullPath() {
