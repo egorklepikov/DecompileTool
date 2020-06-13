@@ -61,7 +61,7 @@ public class Utils {
   }
 
   public void setXmlFolderPath(String xmlFolderPath) {
-    this.xmlFolderPath = prefix + apkName + xmlFolderPath;
+    this.xmlFolderPath = apkName + xmlFolderPath;
   }
 
   public String getAndroidManifestPath() {
@@ -86,7 +86,7 @@ public class Utils {
   }
 
   public void correctNetworkSecurityConfigPath() {
-    this.networkSecurityConfigPath = prefix + apkName + "/res/xml/" + networkSecurityConfigFileName + ".xml";
+    this.networkSecurityConfigPath = apkName + "/res/xml/" + networkSecurityConfigFileName + ".xml";
   }
 
   public String getNetworkSecurityConfigFileName() {
