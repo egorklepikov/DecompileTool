@@ -23,13 +23,6 @@
             <resource>
                 <directory>Tool</directory>
             </resource>
-            <resource>
-                <filtering>false</filtering>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>*</include>
-                </includes>
-            </resource>
         </resources>
     </build>
 

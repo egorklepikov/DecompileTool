@@ -1,7 +1,5 @@
 package easytool.cmd;
 
-import easytool.CmdProcessor;
-
 public class SignProcess implements Command {
     private TerminalProcessor cmdProcessor;
 

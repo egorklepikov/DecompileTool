@@ -1,6 +1,5 @@
 package easytool.injector;
 
-import easytool.Utils;
 import easytool.CmdProcessor;
 
 import java.io.File;
@@ -14,7 +13,7 @@ public class JavaConverter extends CmdProcessor {
     public JavaConverter() {
         classGetter = "javac -d ../Tool -cp ../EasyApk/src/main/java/easytool/injector/classes ../EasyApk/src/main/java/easytool/injector/code/AppodealCode.java";
         jarGetter = "jar cvf AppodealCode.jar easytool/injector/code/AppodealCode.class";
-        dexGetter = Utils.getInstance().getPrefix() + "dx --dex --output AppodealCode.dex AppodealCode.jar";
+        dexGetter = "dx --dex --output AppodealCode.dex AppodealCode.jar";
 
         //TODO проресерчить когда нужно юзать --use-locals --debug-info false
         smaliGetter = "java -jar lib/baksmali.jar d --use-locals --debug-info false -o dexout AppodealCode.dex ";

@@ -33,7 +33,9 @@ public class Utils {
 
     public void setApkName(String apkName) {
         this.fullApkName = apkName;
-        this.apkName = buildApkName(apkName);
+        //this.apkName = buildApkName(apkName);
+        this.apkName = new StringBuilder();
+        this.apkName.append("/Users/Egor.Klepikov/IdeaProjects/DecompileTool/EasyApk/test");
     }
 
     public String getSourcesPath() {
@@ -71,7 +73,7 @@ public class Utils {
     }
 
     public void setAndroidManifestPath(String androidManifestPath) {
-        this.androidManifestPath = prefix + apkName + androidManifestPath;
+        this.androidManifestPath =  apkName + androidManifestPath;
     }
 
     public String getSystemName() {
@@ -80,7 +82,6 @@ public class Utils {
 
     public void setSystemName(String systemName) {
         isMacOS = systemName.contains("Mac OS");
-        prefix = getPrefix();
         this.systemName = systemName;
     }
 
@@ -154,10 +155,6 @@ public class Utils {
 
     public boolean isMacOS() {
         return isMacOS;
-    }
-
-    public String getPrefix() {
-        return isMacOS ? "./" : jarPath;
     }
 
     private StringBuilder buildApkName(String path) {

@@ -9,22 +9,11 @@ import easytool.search.GetSourceProcess;
 import easytool.search.SearchProcess;
 import easytool.search.SearchProcessor;
 
-import java.io.*;
-import java.net.URISyntaxException;
-
 public class Main {
     public static void main(String[] args) {
         if (args.length == 0) {
             return;
         }
-
-        try {
-            String jarPath = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath().replace("EasyApk.jar", "");
-            Utils.getInstance().setJarPath(jarPath);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-
         ArgsParser argsParser = new ArgsParser(args);
 
         Utils.getInstance().setApkName(args[0]);

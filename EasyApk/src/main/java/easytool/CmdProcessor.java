@@ -4,16 +4,13 @@ import java.io.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CmdProcessor {
-
-    public CmdProcessor() {
-    }
-
     protected static boolean processCmdCommand(String command) {
+        ResourceResolver resourceResolver = new ResourceResolver();
         AtomicBoolean result = new AtomicBoolean(false);
         Process process;
         try {
             Runtime runtime = Runtime.getRuntime();
-            process = runtime.exec(command);
+            process = runtime.exec(resourceResolver.resolve(command));
         } catch (IOException ex) {
             ex.printStackTrace();
             return false;

@@ -1,6 +1,7 @@
 package easytool.cmd;
 
 import easytool.CmdProcessor;
+import easytool.ResourceResolver;
 import easytool.Utils;
 import org.apache.commons.io.FileUtils;
 
@@ -18,17 +19,20 @@ public class TerminalProcessor extends CmdProcessor {
 
     public TerminalProcessor() {
         boolean isMacOS = Utils.getInstance().isMacOS();
-        String prefix = Utils.getInstance().getPrefix();
 
         String decompileCommand = isMacOS ? "apktool-osx d -f " : "apktool.bat d -f ";
         String compileCommand = isMacOS ? "apktool-osx b " : "apktool.bat b ";
-        String signApkCommand = "jarsigner -keystore debug.keystore -storepass android -keypass android " +
-                prefix + Utils.getInstance().getApkName() + "/dist/" + Utils.getInstance().getFullApkName() + " androiddebugkey";
 
-        apkToolDecompile = prefix + decompileCommand + prefix + Utils.getInstance().getFullApkName();
-        apkToolBuild = prefix + compileCommand + prefix + Utils.getInstance().getApkName();
-        signApk = isMacOS ? signApkCommand : prefix + signApkCommand;
-        installApk = prefix + "adb install " + prefix + Utils.getInstance().getApkName() + "/dist/" + Utils.getInstance().getFullApkName();
+        String signApkCommand = "" +
+                "jarsigner -keystore " +
+                new ResourceResolver().resolve("debug.keystore") +
+                "-storepass android -keypass android " +
+                Utils.getInstance().getApkName() + "/dist/" + Utils.getInstance().getFullApkName() + " androiddebugkey";
+
+        apkToolDecompile = decompileCommand + Utils.getInstance().getFullApkName();
+        apkToolBuild = compileCommand + Utils.getInstance().getApkName();
+        signApk = isMacOS ? signApkCommand : signApkCommand;
+        installApk = "adb install " + Utils.getInstance().getApkName() + "/dist/" + Utils.getInstance().getFullApkName();
         jadXDecompile = "jadx/bin/jadx --no-debug-info -d out " + Utils.getInstance().getFullApkName();
         installILSpy = "dotnet tool install ilspycmd -g";
     }
