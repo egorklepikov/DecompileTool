@@ -27,12 +27,12 @@ public class TerminalProcessor extends CmdProcessor {
         "jarsigner -keystore " +
         new ResourceResolver().resolve("debug.keystore") +
         "-storepass android -keypass android " +
-        Utils.getInstance().getApkName() + "/dist/" + Utils.getInstance().getFullApkName() + " androiddebugkey";
+        Utils.getInstance().getApkName() + "/dist/" + Utils.getInstance().getApkName() + ".apk " + " androiddebugkey";
 
     apkToolDecompile = decompileCommand + Utils.getInstance().getFullApkName();
     apkToolBuild = compileCommand + Utils.getInstance().getApkName();
     signApk = isMacOS ? signApkCommand : signApkCommand;
-    installApk = "adb install " + Utils.getInstance().getApkName() + "/dist/" + Utils.getInstance().getFullApkName();
+    installApk = "adb install " + Utils.getInstance().getApkName() + "/dist/" + Utils.getInstance().getApkName() + ".apk ";
     jadXDecompile = "jadx/bin/jadx --no-debug-info -d out " + Utils.getInstance().getFullApkName();
     installILSpy = "dotnet tool install ilspycmd -g";
   }
