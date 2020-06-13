@@ -74,11 +74,11 @@ public class ManifestProcessor {
     Attr debuggable = application.getAttributeNode("android:debuggable");
     if (debuggable == null) {
       application.setAttribute("android:debuggable", "true");
-      System.out.println("Debug mode выл добавлен");
+      System.out.println("Debug mode was added");
     } else {
       if (debuggable.getValue().equals("false")) {
         debuggable.setValue("true");
-        System.out.println("Debug Mode был изменен");
+        System.out.println("Debug Mode state was changed");
       }
     }
     updateManifest(androidManifest, Utils.getInstance().getAndroidManifestPath());
@@ -91,14 +91,14 @@ public class ManifestProcessor {
     if (isNetworkSecurityConfigAlreadyExist()) {
       networkConfig = openDocument(Utils.getInstance().getNetworkSecurityConfigPath());
       if (isNetworkConfigMatched(Utils.getInstance().getNetworkSecurityConfigPath())) {
-        System.out.println("Содержимое network_security_config файла матчится");
+        System.out.println("network_security_config is matched");
         changeNetworkSecurityConfigFile();
       } else {
-        System.out.println("Содержимое network_security_config файла не матчится. Нужно проверить вручную и порекомендовать пользователю фикс");
+        System.out.println("network_security_config is not matched. Check it manually and ask the customer to fix it");
         if (removeNetworkSecurityConfig()) {
           createNetworkSecurityConfigFile();
         } else {
-          System.out.println("В процессе добавления network_security_config возникли проблемы");
+          System.out.println("An error occurred during adding the network_security_config");
         }
       }
     } else {
@@ -112,9 +112,9 @@ public class ManifestProcessor {
     if (config.exists()) {
       boolean isRemoved = config.delete();
       if (isRemoved) {
-        System.out.println("network_security_config был удален");
+        System.out.println("network_security_config was removed");
       } else {
-        System.out.println("В процессе удаления network_security_config возникли проблемы");
+        System.out.println("An error occurred during removing the network_security_config");
       }
       return isRemoved;
     } else {
@@ -132,10 +132,10 @@ public class ManifestProcessor {
       } else {
         Utils.getInstance().setNetworkSecurityConfigFileName(configName);
       }
-      System.out.println("Имя NetworkSecurityConfig файла: " + configName);
+      System.out.println("NetworkSecurityConfig file name: " + configName);
     } else {
       application.setAttribute("android:networkSecurityConfig", "@xml/" + Utils.getInstance().getNetworkSecurityConfigFileName());
-      System.out.println("Имя NetworkSecurityConfig файла: " + Utils.getInstance().getNetworkSecurityConfigFileName());
+      System.out.println("NetworkSecurityConfig file name: " + Utils.getInstance().getNetworkSecurityConfigFileName());
     }
 
     updateManifest(androidManifest, Utils.getInstance().getAndroidManifestPath());
@@ -157,7 +157,7 @@ public class ManifestProcessor {
     } catch (FileNotFoundException | UnsupportedEncodingException e) {
       e.printStackTrace();
     }
-    System.out.println("network_security_config был добавлен");
+    System.out.println("network_security_config was added");
   }
 
   private void changeNetworkSecurityConfigFile() {
@@ -167,7 +167,7 @@ public class ManifestProcessor {
     userCertificates.setAttribute("src", "user");
     trustAnchors.appendChild(userCertificates);
     updateManifest(networkConfig, Utils.getInstance().getNetworkSecurityConfigPath());
-    System.out.println("Network Security Config был изменен");
+    System.out.println("network_security_config was changed");
   }
 
   private boolean isNetworkSecurityConfigAlreadyExist() {
@@ -178,7 +178,7 @@ public class ManifestProcessor {
       for (String file : files) {
         if (file.equals(Utils.getInstance().getNetworkSecurityConfigFileName() + ".xml")) {
           isNetworkConfigFileExist = true;
-          System.out.println("Network Security config уже есть внутри АПК");
+          System.out.println("network_security_config already exist");
         }
       }
     }
@@ -231,7 +231,7 @@ public class ManifestProcessor {
     storagePermission.setAttribute("android:name", "android.permission.WRITE_EXTERNAL_STORAGE");
     manifest.appendChild(storagePermission);
     updateManifest(androidManifest, Utils.getInstance().getAndroidManifestPath());
-    System.out.println("Write external storage был добавлен");
+    System.out.println("WRITE_EXTERNAL_STORAGE was added");
   }
 
   private boolean isWriteExternalStorageAlreadyExist() {
@@ -246,7 +246,7 @@ public class ManifestProcessor {
           updateManifest(androidManifest, Utils.getInstance().getAndroidManifestPath());
         }
         isStoragePermissionExist = true;
-        System.out.println("Write external storage permission уже есть внутри АПК");
+        System.out.println("WRITE_EXTERNAL_STORAGE already exist");
         break;
       }
     }
@@ -260,7 +260,7 @@ public class ManifestProcessor {
     } else {
       isRemoveNeed = true;
       attributes.removeNamedItem(maxSdkVersion.getNodeName());
-      System.out.println("maxSdkVersion аттрибут был удален");
+      System.out.println("maxSdkVersion attr was removed");
     }
 
     return isRemoveNeed;

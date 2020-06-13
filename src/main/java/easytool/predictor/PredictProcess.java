@@ -17,14 +17,14 @@ public class PredictProcess implements Command {
   @Override
   public void startNotification() {
     System.out.println("----------------------------------------------------");
-    System.out.println("Поиск проблем внутри АПК");
+    System.out.println("Predictor process was started.");
     System.out.println("----------------------------------------------------");
   }
 
   @Override
   public void endNotification() {
     System.out.println("----------------------------------------------------");
-    System.out.println("Поиск окончен.");
+    System.out.println("Predictor project was finished.");
     System.out.println("----------------------------------------------------");
   }
 

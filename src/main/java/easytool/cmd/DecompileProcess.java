@@ -1,5 +1,7 @@
 package easytool.cmd;
 
+import easytool.Utils;
+
 public class DecompileProcess implements Command {
   private final TerminalProcessor cmdProcessor;
 
@@ -15,21 +17,21 @@ public class DecompileProcess implements Command {
   @Override
   public void startNotification() {
     System.out.println("----------------------------------------------------");
-    System.out.println("Декомпилируем АПК");
+    System.out.println("Decompile APK: " + Utils.getInstance().getApkName());
     System.out.println("----------------------------------------------------");
   }
 
   @Override
   public void endNotification() {
     System.out.println("----------------------------------------------------");
-    System.out.println("Декомпиляция завершена");
+    System.out.println("Decompile process is finished.");
     System.out.println("----------------------------------------------------");
   }
 
   @Override
   public void errorNotification() {
     System.out.println("----------------------------------------------------");
-    System.out.println("В процессе декомпиляции произошли ошибки");
+    System.out.println("An error occurred during decompile process. Check the output to find out the reason.");
     System.out.println("----------------------------------------------------");
   }
 }

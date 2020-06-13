@@ -15,21 +15,21 @@ public class InjectProcess implements InjectCommand {
   @Override
   public void startNotification() {
     System.out.println("----------------------------------------------------");
-    System.out.println("Добавляем методы");
+    System.out.println("Code injection process started.");
     System.out.println("----------------------------------------------------");
   }
 
   @Override
   public void endNotification() {
     System.out.println("----------------------------------------------------");
-    System.out.println("Добавление методов завершено");
+    System.out.println("Code injection process finished.");
     System.out.println("----------------------------------------------------");
   }
 
   @Override
   public void errorNotification() {
     System.out.println("----------------------------------------------------");
-    System.out.println("В процессе добавления сметодов возникли проблемы");
+    System.out.println("An error occurred during injection process. Check the output to find out the reason.");
     System.out.println("----------------------------------------------------");
   }
 }

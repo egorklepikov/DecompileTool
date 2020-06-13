@@ -68,7 +68,7 @@ public class TerminalProcessor extends CmdProcessor {
       createSourcesDir();
       return (processCmdCommand(ilSpyDecompile));
     } else {
-      System.out.println("Проверьте что .NET Core установлен корректно");
+      System.out.println("Check that .NET Core is installed on your machine.");
       return false;
     }
   }

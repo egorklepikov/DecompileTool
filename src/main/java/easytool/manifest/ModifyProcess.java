@@ -1,5 +1,6 @@
 package easytool.manifest;
 
+import easytool.Utils;
 import easytool.cmd.Command;
 import easytool.injector.InjectInvoker;
 import easytool.injector.InjectProcess;
@@ -40,21 +41,21 @@ public class ModifyProcess implements Command {
   @Override
   public void startNotification() {
     System.out.println("----------------------------------------------------");
-    System.out.println("Модифицируем АПК");
+    System.out.println("Modifying APK: " + Utils.getInstance().getApkName());
     System.out.println("----------------------------------------------------");
   }
 
   @Override
   public void endNotification() {
     System.out.println("----------------------------------------------------");
-    System.out.println("Модификация закончена");
+    System.out.println("Modification process is finished.");
     System.out.println("----------------------------------------------------");
   }
 
   @Override
   public void errorNotification() {
     System.out.println("----------------------------------------------------");
-    System.out.println("В процессе модицикации возникли проблемы");
+    System.out.println("An error occurred during modification process. Check the output to find out the reason");
     System.out.println("----------------------------------------------------");
   }
 }
