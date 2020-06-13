@@ -12,7 +12,6 @@ public class Utils {
   private String systemName;
   private String networkSecurityConfigPath;
   private String networkSecurityConfigFileName;
-  private String prefix;
   private String sourcesPath;
   private String framework;
   private boolean isMacOS;
@@ -47,10 +46,6 @@ public class Utils {
     return fullApkName;
   }
 
-  public String getJarPath() {
-    return jarPath;
-  }
-
   public void setJarPath(String jarPath) {
     this.jarPath = jarPath;
   }
@@ -69,10 +64,6 @@ public class Utils {
 
   public void setAndroidManifestPath(String androidManifestPath) {
     this.androidManifestPath = apkName + androidManifestPath;
-  }
-
-  public String getSystemName() {
-    return systemName;
   }
 
   public void setSystemName(String systemName) {
