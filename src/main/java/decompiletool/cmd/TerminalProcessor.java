@@ -25,7 +25,7 @@ public class TerminalProcessor extends CmdProcessor {
 
     String signApkCommand = "" +
         "jarsigner -keystore " +
-        new ResourceResolver().resolve("debug.keystore") +
+        ResourceResolver.getInstance().resolve("debug.keystore") +
         "-storepass android -keypass android " +
         Utils.getInstance().getApkName() + "/dist/" + Utils.getInstance().getApkName() + ".apk " + " androiddebugkey";
 

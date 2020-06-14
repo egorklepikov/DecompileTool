@@ -13,7 +13,7 @@ public class CmdProcessor {
     try {
       Runtime runtime = Runtime.getRuntime();
       if (isResolverRequired) {
-        process = runtime.exec(new ResourceResolver().resolve(command));
+        process = runtime.exec(ResourceResolver.getInstance().resolve(command));
       } else {
         process = runtime.exec(command);
       }
