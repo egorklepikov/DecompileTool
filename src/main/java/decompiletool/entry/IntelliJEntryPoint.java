@@ -7,7 +7,6 @@ import decompiletool.manifest.ModifyProcess;
 public class IntelliJEntryPoint {
   public static void main(String[] args) {
     Utils.getInstance().setApkName(args[0]);
-    Utils.getInstance().setNetworkSecurityConfigFileName("network_security_config");
     Utils.getInstance().setSystemName(System.getProperty("os.name"));
     Utils.getInstance().setXmlFolderPath("/res/xml");
     Utils.getInstance().setAndroidManifestPath("/AndroidManifest.xml");

@@ -9,7 +9,7 @@ public class Utils {
   private String xmlFolderPath;
   private String androidManifestPath;
   private String networkSecurityConfigPath;
-  private String networkSecurityConfigFileName;
+  private String networkSecurityConfigFileName = "network_security_config";
   private String sourcesPath;
   private String framework;
   private boolean isMacOS;
