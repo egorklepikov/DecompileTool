@@ -14,15 +14,12 @@ public class ApkGetter {
 
     public boolean getApk() {
         if (isApkLoadedFromHardDisk()) {
-            Utils.getInstance().setApkName(apkInfo[0]);
-            Utils.getInstance().setXmlFolderPath("/res/xml");
-            Utils.getInstance().setAndroidManifestPath("/AndroidManifest.xml");
+            Utils.getInstance().setInitialApkData(apkInfo[0]);
             return true;
         }
+
         File apkFile = loadApk();
-        Utils.getInstance().setApkName(Objects.requireNonNull(apkFile).getAbsolutePath());
-        Utils.getInstance().setXmlFolderPath("/res/xml");
-        Utils.getInstance().setAndroidManifestPath("/AndroidManifest.xml");
+        Utils.getInstance().setInitialApkData(Objects.requireNonNull(apkFile).getAbsolutePath());
         return apkFile.exists();
     }
 

@@ -16,10 +16,8 @@ public class Main {
     }
     ArgsParser argsParser = new ArgsParser(args);
 
-    Utils.getInstance().setApkName(args[0]);
+    Utils.getInstance().setInitialApkData(args[0]);
     Utils.getInstance().setSystemName(System.getProperty("os.name"));
-    Utils.getInstance().setXmlFolderPath("/res/xml");
-    Utils.getInstance().setAndroidManifestPath("/AndroidManifest.xml");
 
     TerminalProcessor terminalProcessor = new TerminalProcessor();
     CommandInvoker invoker = new CommandInvoker();
