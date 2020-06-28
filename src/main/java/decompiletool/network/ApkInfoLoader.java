@@ -75,21 +75,19 @@ public class ApkInfoLoader {
 
   private String findReleaseSize(Element release) {
     return release.select("div.ver-item").first().
-      select("div.ver-item-wrap").first().
-      select("span.ver-item-s").first().ownText()
-    ;
+        select("div.ver-item-wrap").first().
+        select("span.ver-item-s").first().ownText();
   }
 
   private String findReleaseVersion(Element release) {
     return release.select("div.ver-item").first().
-      select("div.ver-item-wrap").first().
-      select("span.ver-item-n").first().ownText()
-    ;
+        select("div.ver-item-wrap").first().
+        select("span.ver-item-n").first().ownText();
   }
 
   private String findReleaseDate(Element release) {
     return release.select("div.ver-item-a").first().
-      select("p.update-on").first().ownText();
+        select("p.update-on").first().ownText();
   }
 
   private String buildRequest(String searchQuery) {
