@@ -13,13 +13,21 @@ import java.util.ArrayList;
 public class DecompileTool {
   private static AppInformation selectedApp;
   private static ApkInfoLoader infoLoader;
+  private static DecompileTool instance;
 
-  public DecompileTool() {
+  private DecompileTool() {
     infoLoader = new ApkInfoLoader();
     Utils.getInstance().setSystemName(System.getProperty("os.name"));
   }
 
-  public static ArrayList<AppInformation> getAppsList(String searchQuery) {
+  public static DecompileTool getInstance() {
+    if (instance == null) {
+      instance = new DecompileTool();
+    }
+    return instance;
+  }
+
+  public ArrayList<AppInformation> getAppsList(String searchQuery) {
     try {
       return infoLoader.loadData(searchQuery);
     } catch (IOException exception) {
@@ -28,18 +36,18 @@ public class DecompileTool {
     }
   }
 
-  public static void selectApp(AppInformation appInformation) {
+  public void selectApp(AppInformation appInformation) {
     selectedApp = appInformation;
   }
 
-  public static void selectApp(String applicationPath) {
+  public void selectApp(String applicationPath) {
     selectedApp = new AppInformation();
     selectedApp.setAppName(applicationPath);
     selectedApp.setVendor("local_installation");
     selectedApp.setAppVersions(null);
   }
 
-  public static void startAppProcessing() {
+  public void startAppProcessing() {
     if (selectedApp == null) {
       throw new RuntimeException("The application is not selected");
     }
