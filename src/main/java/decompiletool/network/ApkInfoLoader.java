@@ -69,25 +69,6 @@ public class ApkInfoLoader {
     return Integer.parseInt(verItemDiv.select("span.ver-n").first().ownText());
   }
 
-  //<li> <a title="Download Hill Climb Racing 2 v1.37.4 build variants in android" href="/hill-climb-racing-2/com.fingersoft.hcr2/variant/1.37.4-XAPK">
-  //        <div class="ver-item">
-  //         <div class="ver-item-wrap">
-  //          <span class="ver-item-n">V1.37.4</span>
-  //          <span class="ver-item-s">136.8 MB</span>
-  //          <span class="ver-item-t ver-xapk">XAPK</span>
-  //          <span class="ver-item-t">APKs</span>
-  //         </div>
-  //         <div class="ver-item-a">
-  //          <p>Hill Climb Racing 2</p>
-  //          <p class="update-on">2020-06-15</p>
-  //         </div>
-  //         <i class="ver-item-d"></i>
-  //         <div class="ver-item-v" title="3 Variants">
-  //          <span class="ver-n">3</span>
-  //          <span>Variants</span>
-  //         </div>
-  //        </div> </a> </li>
-
   private String findReleaseURL(Element release) {
     return "https://apkpure.com" + release.select("a").first().attr("href");
   }
