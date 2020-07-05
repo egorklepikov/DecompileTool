@@ -54,6 +54,9 @@ public class DecompileTool {
       throw new RuntimeException("The application is not selected");
     }
 
+    System.out.println(selectedApp);
+    System.out.println(selectedRelease);
+
     PreparationInvoker preparationInvoker = new PreparationInvoker();
     preparationInvoker.putCommand(new GetApkProcess(selectedApp));
     preparationInvoker.startExecuting();
