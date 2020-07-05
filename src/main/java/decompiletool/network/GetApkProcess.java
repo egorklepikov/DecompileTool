@@ -3,15 +3,13 @@ package decompiletool.network;
 import decompiletool.cmd.Command;
 
 public class GetApkProcess implements Command {
-    private final ApkGetter apkGetter;
+    public GetApkProcess(AppInformation selectedApp) {
 
-    public GetApkProcess(String[] args) {
-        apkGetter = new ApkGetter(args);
     }
 
     @Override
     public boolean execute() {
-        return apkGetter.getApk();
+        return false;
     }
 
     @Override
