@@ -3,7 +3,7 @@ package decompiletool.network;
 import decompiletool.cmd.Command;
 
 public class GetApkProcess implements Command {
-    public GetApkProcess(AppInformation selectedApp) {
+    public GetApkProcess(AppInformation selectedApp, AppInformation.AppRelease selectedRelease) {
 
     }
 

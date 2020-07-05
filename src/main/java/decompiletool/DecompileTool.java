@@ -58,7 +58,7 @@ public class DecompileTool {
     System.out.println(selectedRelease);
 
     PreparationInvoker preparationInvoker = new PreparationInvoker();
-    preparationInvoker.putCommand(new GetApkProcess(selectedApp));
+    preparationInvoker.putCommand(new GetApkProcess(selectedApp, selectedRelease));
     preparationInvoker.startExecuting();
 
     if (preparationInvoker.isApplicationReady()) {
