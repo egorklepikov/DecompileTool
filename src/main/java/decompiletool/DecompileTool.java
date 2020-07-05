@@ -11,7 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class DecompileTool {
-  private static AppInformation selectedApp;
+  private AppInformation selectedApp;
+  private AppInformation.AppRelease selectedRelease;
   private static ApkInfoLoader infoLoader;
   private static DecompileTool instance;
 
@@ -36,8 +37,9 @@ public class DecompileTool {
     }
   }
 
-  public void selectApp(AppInformation appInformation) {
+  public void selectApp(AppInformation appInformation, AppInformation.AppRelease release) {
     selectedApp = appInformation;
+    selectedRelease = release;
   }
 
   public void selectApp(String applicationPath) {
