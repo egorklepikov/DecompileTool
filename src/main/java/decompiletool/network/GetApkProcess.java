@@ -3,13 +3,15 @@ package decompiletool.network;
 import decompiletool.cmd.Command;
 
 public class GetApkProcess implements Command {
-  public GetApkProcess(AppInformation selectedApp, AppInformation.AppRelease selectedRelease) {
+  private ApkLoader apkLoader;
 
+  public GetApkProcess(AppInformation selectedApp, AppInformation.AppRelease selectedRelease, String targetApkPath) {
+    apkLoader = new ApkLoader(selectedApp, selectedRelease, targetApkPath);
   }
 
   @Override
   public boolean execute() {
-    return false;
+    return apkLoader.loadApk();
   }
 
   @Override

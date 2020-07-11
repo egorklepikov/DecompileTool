@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class DecompileTool {
   private AppInformation selectedApp;
   private AppInformation.AppRelease selectedRelease;
+  private String targetApkPath;
   private static ApkInfoLoader infoLoader;
   private static DecompileTool instance;
 
@@ -49,16 +50,17 @@ public class DecompileTool {
     selectedApp.setAppVersions(null);
   }
 
+  public void setTargetApkPath(String targetApkPath) {
+    this.targetApkPath = targetApkPath;
+  }
+
   public void startAppProcessing() {
     if (selectedApp == null) {
       throw new RuntimeException("The application is not selected");
     }
 
-    System.out.println(selectedApp);
-    System.out.println(selectedRelease);
-
     PreparationInvoker preparationInvoker = new PreparationInvoker();
-    preparationInvoker.putCommand(new GetApkProcess(selectedApp, selectedRelease));
+    preparationInvoker.putCommand(new GetApkProcess(selectedApp, selectedRelease, targetApkPath));
     preparationInvoker.startExecuting();
 
     if (preparationInvoker.isApplicationReady()) {

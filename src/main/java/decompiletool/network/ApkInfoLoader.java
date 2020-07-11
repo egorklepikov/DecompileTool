@@ -41,25 +41,42 @@ public class ApkInfoLoader {
     ArrayList<AppInformation.AppRelease> releaseInformation = new ArrayList<>();
     Document htmlResponse = Jsoup.connect(appURL).get();
 
-    //Getting versions page URL
-    String versionURL = htmlResponse.select("div.ny-down").first().select("a").get(1).attr("href");
-    htmlResponse = Jsoup.connect("https://apkpure.com" + versionURL).get();
+    //Getting app versions URL
+    Elements nYDivElements = htmlResponse.select("div.ny-down").first().select("a");
+    if (nYDivElements.size() == 1) {
+      throw new RuntimeException("Application is paid only.");
+    } else {
+      String versionURL = nYDivElements.get(1).attr("href");
+      htmlResponse = Jsoup.connect("https://apkpure.com" + versionURL).get();
 
-    Elements appReleases = htmlResponse.select("div.ver").first().select("li");
-    for (Element release : appReleases) {
-      AppInformation.AppRelease appRelease = new AppInformation.AppRelease();
-      if (buildVariants(release) > 1) {
-        appRelease.setDownloadingURL("skipped_release");
-      } else {
-        appRelease.setDownloadingURL(findReleaseURL(release));
+      Elements appReleases = htmlResponse.select("div.ver").first().select("li");
+      for (Element release : appReleases) {
+        AppInformation.AppRelease appRelease = new AppInformation.AppRelease();
+        if (buildVariants(release) > 1) {
+          appRelease.setDownloadingURL("skipped_release");
+        } else {
+          appRelease.setDownloadingURL(findReleaseURL(release));
+        }
+        appRelease.setReleaseDate(findReleaseDate(release));
+        appRelease.setReleaseVersion(findReleaseVersion(release));
+        appRelease.setReleaseSize(findReleaseSize(release));
+        releaseInformation.add(appRelease);
       }
-      appRelease.setReleaseDate(findReleaseDate(release));
-      appRelease.setReleaseVersion(findReleaseVersion(release));
-      appRelease.setReleaseSize(findReleaseSize(release));
-      releaseInformation.add(appRelease);
     }
     return releaseInformation;
   }
+
+  //       <div class="ny-down">
+  //        <a rel="nofollow" class="google-play-badge" href="https://play.google.com/store/apps/details?id=air.com.noodlecake.luminocity&amp;referrer=utm_source%3Dapkpure.com" target="_blank" title="Download on Google Play"> <img src="https://static.apkpure.com/www/static/imgs/google-play-badge.png" height="50"> </a>
+  //        <div class="pricing" itemscope itemprop="offers" itemtype="https://schema.org/Offer">
+  //         <div class="price only">
+  //          $4.99
+  //         </div>
+  //         <meta itemprop="price" content="4.99">
+  //         <meta itemprop="priceCurrency" content="USD">
+  //         <meta itemprop="availability" content="https://schema.org/InStock">
+  //        </div>
+  //       </div>
 
   private int buildVariants(Element release) {
     Element verItemDiv = release.select("a").first().select("div.ver-item-v").first();
@@ -69,8 +86,10 @@ public class ApkInfoLoader {
     return Integer.parseInt(verItemDiv.select("span.ver-n").first().ownText());
   }
 
-  private String findReleaseURL(Element release) {
-    return "https://apkpure.com" + release.select("a").first().attr("href");
+  private String findReleaseURL(Element release) throws IOException {
+    String downloadingPageURL = "https://apkpure.com" + release.select("a").first().attr("href");
+    Document htmlResponse = Jsoup.connect(downloadingPageURL).get();
+    return htmlResponse.select("iframe.iframe_download").first().attr("src");
   }
 
   private String findReleaseSize(Element release) {
