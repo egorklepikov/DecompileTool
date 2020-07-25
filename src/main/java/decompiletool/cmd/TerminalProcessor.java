@@ -9,64 +9,104 @@ import java.io.File;
 import java.io.IOException;
 
 public class TerminalProcessor extends CmdProcessor {
-  private final String apkToolBuild;
-  private final String apkToolDecompile;
-  private final String signApk;
-  private final String installApk;
-  private final String jadXDecompile;
-  private String ilSpyDecompile;
-  private final String installILSpy;
-
-  public TerminalProcessor() {
-    boolean isMacOS = Utils.getInstance().isMacOS();
-
-    String decompileCommand = isMacOS ? "apktool-osx d -f " : "apktool.bat d -f ";
-    String compileCommand = isMacOS ? "apktool-osx b " : "apktool.bat b ";
-
-    String signApkCommand = "" +
-        "jarsigner -keystore " +
-        ResourceResolver.getInstance().resolve("debug.keystore") +
-        "-storepass android -keypass android " +
-        Utils.getInstance().getApkName() + "/dist/" + Utils.getInstance().getApkName() + ".apk " + " androiddebugkey";
-
-    apkToolDecompile = decompileCommand + Utils.getInstance().getFullApkName();
-    apkToolBuild = compileCommand + Utils.getInstance().getApkName();
-    signApk = isMacOS ? signApkCommand : signApkCommand;
-    installApk = "adb install " + Utils.getInstance().getApkName() + "/dist/" + Utils.getInstance().getApkName() + ".apk ";
-    jadXDecompile = "jadx/bin/jadx --no-debug-info -d out " + Utils.getInstance().getFullApkName();
-    installILSpy = "dotnet tool install ilspycmd -g";
-  }
+  public TerminalProcessor() { }
 
   public boolean decompileApk() {
-    return processCmdCommand(apkToolDecompile, true);
+    StringBuilder decompileCommand = new StringBuilder();
+    if (Utils.getInstance().isMacOS()) {
+      decompileCommand.append("apktool-osx");
+    } else {
+      decompileCommand.append("apktool.bat");
+    }
+    decompileCommand
+      .append(" d ")
+      .append(" -f ")
+      .append(Utils.getInstance().getFullApkName())
+      .append(" -o ")
+      .append(Utils.getInstance().getTargetApkPath())
+      .append("/")
+      .append(Utils.getInstance().getApkName());
+
+    return processCmdCommand(decompileCommand.toString(), true);
   }
 
   public boolean compileApk() {
-    return processCmdCommand(apkToolBuild, true);
+    StringBuilder compileCommand = new StringBuilder();
+    if (Utils.getInstance().isMacOS()) {
+      compileCommand.append("apktool-osx");
+    } else {
+      compileCommand.append("apktool.bat");
+    }
+    compileCommand
+      .append(" b ")
+      .append(Utils.getInstance().getTargetApkPath())
+      .append("/")
+      .append(Utils.getInstance().getApkName());
+
+    return processCmdCommand(compileCommand.toString(), true);
   }
 
   public boolean signApk() {
-    return processCmdCommand(signApk, false);
+    StringBuilder signCommand = new StringBuilder();
+    signCommand
+      .append("jarsigner")
+      .append(" -keystore ")
+      .append(ResourceResolver.getInstance().resolve("debug.keystore"))
+      .append("-storepass android -keypass android ")
+      .append(Utils.getInstance().getTargetApkPath()).append("/")
+      .append(Utils.getInstance().getApkName()).append("/dist/").append(Utils.getInstance().getApkName()).append(".apk ")
+      .append(" androiddebugkey");
+
+    return processCmdCommand(signCommand.toString(), false);
   }
 
   public boolean installApk() {
-    return processCmdCommand(installApk, true);
+    StringBuilder installCommand = new StringBuilder();
+    installCommand
+      .append("adb install ")
+      .append(Utils.getInstance().getTargetApkPath()).append("/")
+      .append(Utils.getInstance().getApkName()).append("/dist/").append(Utils.getInstance().getApkName()).append(".apk");
+
+    return processCmdCommand(installCommand.toString(), true);
   }
 
   public boolean decompileApkJadX() {
     try {
       FileUtils.deleteDirectory(new File(Utils.getInstance().getSourcesPath()));
+      StringBuilder jadXCommand = new StringBuilder();
+      jadXCommand
+        .append("jadx/bin/jadx")
+        .append(" --no-debug-info ")
+        .append(" -d ")
+        .append(" out ").append(Utils.getInstance().getFullApkName());
+
+      return processCmdCommand(jadXCommand.toString(), true);
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return processCmdCommand(jadXDecompile, true);
+    return false;
   }
 
   public boolean decompileApkIlSpy() {
-    ilSpyDecompile = "ilspycmd " + Utils.getInstance().getDllFileFullPath() + " -o " + Utils.getInstance().getSourcesPath() + " -p";
-    if (processCmdCommand(installILSpy, true)) {
-      createSourcesDir();
-      return (processCmdCommand(ilSpyDecompile, true));
+    StringBuilder installILSpyCommand = new StringBuilder();
+    installILSpyCommand
+      .append("dotnet tool install ilspycmd")
+      .append(" -g");
+
+    if (processCmdCommand(installILSpyCommand.toString(), true)) {
+      if (createSourcesDir()) {
+        StringBuilder ilSpyDecompileCommand = new StringBuilder();
+        ilSpyDecompileCommand
+          .append("ilspycmd ")
+          .append(Utils.getInstance().getDllFileFullPath())
+          .append(" -o ")
+          .append(Utils.getInstance().getSourcesPath())
+          .append(" -p");
+
+        return (processCmdCommand(ilSpyDecompileCommand.toString(), true));
+      } else {
+        throw new RuntimeException("Unable to create folder for source code (iLSpy");
+      }
     } else {
       System.out.println("Check that .NET Core is installed on your machine.");
       return false;

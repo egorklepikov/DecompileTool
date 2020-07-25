@@ -13,6 +13,7 @@ public class Utils {
   private String sourcesPath;
   private String framework;
   private boolean isMacOS;
+  private String targetApkPath;
 
   private Utils() { }
 
@@ -23,8 +24,8 @@ public class Utils {
   public void setInitialApkData(String apkName) {
     this.fullApkName = apkName;
     this.apkName = buildApkName(apkName);
-    this.xmlFolderPath = this.apkName + xmlFolderPath;
-    this.androidManifestPath = this.apkName + androidManifestPath;
+    this.xmlFolderPath = targetApkPath + "/" + this.apkName + xmlFolderPath;
+    this.androidManifestPath = targetApkPath + "/" + this.apkName + androidManifestPath;
   }
 
   private String buildApkName(String path) {
@@ -152,7 +153,7 @@ public class Utils {
   }
 
   public void correctNetworkSecurityConfigPath() {
-    this.networkSecurityConfigPath = apkName + "/res/xml/" + networkSecurityConfigFileName + ".xml";
+    this.networkSecurityConfigPath = targetApkPath + "/" + apkName + "/res/xml/" + networkSecurityConfigFileName + ".xml";
   }
 
   public String getNetworkSecurityConfigFileName() {
@@ -161,5 +162,13 @@ public class Utils {
 
   public void setNetworkSecurityConfigFileName(String networkSecurityConfigFileName) {
     this.networkSecurityConfigFileName = networkSecurityConfigFileName;
+  }
+
+  public void setTargetStorePath(String targetApkPath) {
+    this.targetApkPath = targetApkPath;
+  }
+
+  public String getTargetApkPath() {
+    return targetApkPath;
   }
 }
