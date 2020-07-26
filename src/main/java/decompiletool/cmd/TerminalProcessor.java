@@ -19,13 +19,8 @@ public class TerminalProcessor extends CmdProcessor {
       decompileCommand.append("apktool.bat");
     }
     decompileCommand
-      .append(" d ")
-      .append(" -f ")
-      .append(Utils.getInstance().getFullApkName())
-      .append(" -o ")
-      .append(Utils.getInstance().getTargetApkPath())
-      .append("/")
-      .append(Utils.getInstance().getApkName());
+      .append(" d ").append(" -f ").append(Utils.getInstance().getFullApkName())
+      .append(" -o ").append(Utils.getInstance().getTargetApkPath()).append("/").append(Utils.getInstance().getApkName());
 
     return processCmdCommand(decompileCommand.toString(), true);
   }
@@ -38,8 +33,7 @@ public class TerminalProcessor extends CmdProcessor {
       compileCommand.append("apktool.bat");
     }
     compileCommand
-      .append(" b ")
-      .append(Utils.getInstance().getTargetApkPath())
+      .append(" b ").append(Utils.getInstance().getTargetApkPath())
       .append("/")
       .append(Utils.getInstance().getApkName());
 
