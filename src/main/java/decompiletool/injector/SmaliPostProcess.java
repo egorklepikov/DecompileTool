@@ -17,18 +17,14 @@ public class SmaliPostProcess {
     this.userMainClassName = userMainClassName;
 
     this.activityRequireMethods = new ArrayList<>();
-    fillActivityMethods();
-  }
-
-  private void fillActivityMethods() {
-    activityRequireMethods.add("initialize");
-    activityRequireMethods.add("cache");
-    activityRequireMethods.add("show");
-    activityRequireMethods.add("hide");
-    activityRequireMethods.add("onResume");
-    activityRequireMethods.add("startTestActivity");
-    activityRequireMethods.add("trackInAppPurchase");
-    activityRequireMethods.add("disableNetwork");
+    this.activityRequireMethods.add("initialize");
+    this.activityRequireMethods.add("cache");
+    this.activityRequireMethods.add("show");
+    this.activityRequireMethods.add("hide");
+    this.activityRequireMethods.add("onResume");
+    this.activityRequireMethods.add("startTestActivity");
+    this.activityRequireMethods.add("trackInAppPurchase");
+    this.activityRequireMethods.add("disableNetwork");
   }
 
   public File modifySmaliCode() {

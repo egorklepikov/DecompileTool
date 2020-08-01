@@ -66,18 +66,6 @@ public class ApkInfoLoader {
     return releaseInformation;
   }
 
-  //       <div class="ny-down">
-  //        <a rel="nofollow" class="google-play-badge" href="https://play.google.com/store/apps/details?id=air.com.noodlecake.luminocity&amp;referrer=utm_source%3Dapkpure.com" target="_blank" title="Download on Google Play"> <img src="https://static.apkpure.com/www/static/imgs/google-play-badge.png" height="50"> </a>
-  //        <div class="pricing" itemscope itemprop="offers" itemtype="https://schema.org/Offer">
-  //         <div class="price only">
-  //          $4.99
-  //         </div>
-  //         <meta itemprop="price" content="4.99">
-  //         <meta itemprop="priceCurrency" content="USD">
-  //         <meta itemprop="availability" content="https://schema.org/InStock">
-  //        </div>
-  //       </div>
-
   private int buildVariants(Element release) {
     Element verItemDiv = release.select("a").first().select("div.ver-item-v").first();
     if (verItemDiv == null) {
