@@ -14,6 +14,7 @@ public class Utils {
   private String framework;
   private boolean isMacOS;
   private String targetApkPath;
+  private boolean isPathsInitialized = false;
 
   private Utils() { }
 
@@ -22,10 +23,13 @@ public class Utils {
   }
 
   public void setInitialApkData(String apkName) {
-    this.fullApkName = apkName;
-    this.apkName = buildApkName(apkName);
-    this.xmlFolderPath = targetApkPath + "/" + this.apkName + xmlFolderPath;
-    this.androidManifestPath = targetApkPath + "/" + this.apkName + androidManifestPath;
+    if (!isPathsInitialized) {
+      this.fullApkName = apkName;
+      this.apkName = buildApkName(apkName);
+      this.xmlFolderPath = targetApkPath + "/" + this.apkName + xmlFolderPath;
+      this.androidManifestPath = targetApkPath + "/" + this.apkName + androidManifestPath;
+      isPathsInitialized = true;
+    }
   }
 
   private String buildApkName(String path) {
