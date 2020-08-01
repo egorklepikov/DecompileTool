@@ -7,9 +7,11 @@ import java.io.InputStreamReader;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CmdProcessor {
+  private static Process process;
+  public static volatile boolean forceProcessInterrupt = false;
+
   protected static boolean processCmdCommand(String command, boolean isResolverRequired) {
     AtomicBoolean result = new AtomicBoolean(false);
-    Process process;
     try {
       Runtime runtime = Runtime.getRuntime();
       if (isResolverRequired) {
@@ -24,12 +26,13 @@ public class CmdProcessor {
 
     if (process == null) throw new NullPointerException();
 
-    Process finalProcess = process;
-    Thread inputStreamThread = new Thread(() -> result.set(outputThread("input", finalProcess)));
-    Thread errorStreamThread = new Thread(() -> result.set(outputThread("error", finalProcess)));
+    Thread inputStreamThread = new Thread(() -> result.set(getThread("input")));
+    Thread errorStreamThread = new Thread(() -> result.set(getThread("error")));
+    Thread interruptProcessThread = new InterruptProcessListener();
 
     inputStreamThread.start();
     errorStreamThread.start();
+    interruptProcessThread.start();
 
     try {
       inputStreamThread.join();
@@ -41,7 +44,7 @@ public class CmdProcessor {
     return result.get();
   }
 
-  private static boolean outputThread(String outputType, Process process) {
+  private static boolean getThread(String outputType) {
     InputStream stream;
     if (outputType.equals("input")) {
       stream = process.getInputStream();
@@ -55,15 +58,28 @@ public class CmdProcessor {
     BufferedReader bufferedReader = new BufferedReader(streamReader);
 
     try {
-      String error = bufferedReader.readLine();
-      while (error != null) {
-        System.out.println(error);
-        error = bufferedReader.readLine();
+      String message = bufferedReader.readLine();
+      while (message != null) {
+        System.out.println(message);
+        message = bufferedReader.readLine();
       }
     } catch (IOException e) {
       e.printStackTrace();
     }
 
     return true;
+  }
+
+  private static class InterruptProcessListener extends Thread {
+    @Override
+    public void run() {
+      while (process.isAlive()) {
+       if (forceProcessInterrupt) {
+         process.destroy();
+         forceProcessInterrupt = false;
+         System.out.println("The process was successfully killed");
+       }
+      }
+    }
   }
 }
